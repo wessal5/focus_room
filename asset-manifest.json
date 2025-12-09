@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/focus_room/static/css/main.53ffa9a4.css",
+    "main.js": "/focus_room/static/js/main.17608ec5.js",
+    "index.html": "/focus_room/index.html",
+    "main.53ffa9a4.css.map": "/focus_room/static/css/main.53ffa9a4.css.map",
+    "main.17608ec5.js.map": "/focus_room/static/js/main.17608ec5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.53ffa9a4.css",
+    "static/js/main.17608ec5.js"
+  ]
+}
