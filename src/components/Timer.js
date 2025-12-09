@@ -138,7 +138,7 @@ const Timer = () => {
                 onClick={handleStartTimer}
                 className="bg-[#8B4513] px-4 py-1 rounded hover:bg-[#A0522D] transition-colors"
               >
-                {timeLeft !== initialDuration ? "Reprendre" : "Start"}
+                {timeLeft !== initialDuration ? "Resume" : "Start"}
               </button>
             ) : (
               <button
@@ -159,7 +159,7 @@ const Timer = () => {
                 onClick={handleStartChrono}
                 className="bg-[#8B4513] px-4 py-1 rounded hover:bg-[#A0522D] transition-colors"
               >
-                {chronoTime !== 0 ? "Reprendre" : "Start"}
+                {chronoTime !== 0 ? "" : "Start"}
               </button>
             ) : (
               <button
