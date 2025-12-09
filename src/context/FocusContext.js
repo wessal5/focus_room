@@ -9,7 +9,7 @@ export const FocusContext = createContext();
 // Provider qui englobe l'application et fournit les états et fonctions
 export function FocusProvider({ children }) {
   // État pour l'arrière-plan sélectionné
-  const [background, setBackground] = useState("/backgrounds/forest.jpg");
+  const [background, setBackground] = useState("/backgrounds/cafe.jpg");
 
   // État pour afficher ou non le timer
   const [showTimer, setShowTimer] = useState(true);
