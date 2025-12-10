@@ -11,9 +11,6 @@ export function FocusProvider({ children }) {
   // État pour l'arrière-plan sélectionné
   const [background, setBackground] = useState("/backgrounds/cafe.jpg");
 
-  // État pour afficher ou non le timer
-  const [showTimer, setShowTimer] = useState(true);
-
   // État pour savoir si le timer est en cours (focus activé)
   const [isFocused, setIsFocused] = useState(false);
 
@@ -71,8 +68,6 @@ export function FocusProvider({ children }) {
       value={{
         background,        // arrière-plan actuel
         setBackground,     // fonction pour changer l'arrière-plan
-        showTimer,         // booléen pour afficher le timer
-        setShowTimer,      // fonction pour toggle timer
         sounds,            // volumes des sons
         setSounds,         // fonction pour modifier volumes
         audiosRef,         // références vers les objets Audio
