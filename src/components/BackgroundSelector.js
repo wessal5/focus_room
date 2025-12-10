@@ -8,7 +8,6 @@ const initialBackgrounds = [
 { id: 2, src: "backgrounds/cafe.jpg" }, // Café
 { id: 3, src: "backgrounds/mountain.jpg" }, // Montagne
 { id: 4, src: "backgrounds/night.jpg" }, // Nuit (ajouté)
-{ id: 5, src: "backgrounds/room.jpg" }, // Chambre
 ];
 
 
