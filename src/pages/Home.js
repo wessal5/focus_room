@@ -13,7 +13,9 @@ import { FocusContext } from "../context/FocusContext";   // Contexte global
 
 export default function Home() {
   // Récupération des états globaux depuis le contexte
-  const { background, showTimer, inFocusRoom } = useContext(FocusContext);
+  const { background, inFocusRoom } = useContext(FocusContext);
+  // const { showTimer } = useContext(FocusContext); 
+  // → plus nécessaire puisque le timer sera toujours actif dans la Focus Room
 
   return (
     <div
@@ -42,7 +44,7 @@ export default function Home() {
 
           <div className="flex-1 flex flex-col items-center justify-center">
             {/* Minuteur / Chronomètre */}
-            {showTimer && <Timer />}
+            <Timer /> {/* Le timer est toujours actif, plus besoin de showTimer */}
           </div>
         </div>
       )}
