@@ -1,12 +1,8 @@
-// Timer.js — Composant gérant un minuteur + un chronomètre, avec gestion du focus global
+// Timer.js — Composant gérant un minuteur + un chronomètre, avec gestion locale du Start / Pause / Resume
 
-import React, { useState, useEffect, useContext } from "react";
-import { FocusContext } from "../context/FocusContext"; // Contexte permettant de savoir si le timer/chrono est en cours
+import React, { useState, useEffect } from "react";
 
 const Timer = () => {
-  // Récupère l'état global du focus
-  const { isFocused, setIsFocused } = useContext(FocusContext);
-
   // mode = "timer" ou "chrono"
   const [mode, setMode] = useState("timer");
 
@@ -19,21 +15,25 @@ const Timer = () => {
   // Temps écoulé pour le chronomètre
   const [chronoTime, setChronoTime] = useState(0);
 
+  // Drapeau local pour Start / Pause / Resume
+  const [isRunning, setIsRunning] = useState(false);
+
   // Durée initiale (sert pour Reset mais pas pour Resume)
   const initialDuration = minutesInput * 60;
 
+  // useEffect pour gérer le timer/chrono
   useEffect(() => {
     let interval = null; // variable de stockage de l'intervalle
 
     // Si le timer/chrono est lancé
-    if (isFocused) {
+    if (isRunning) {
       // Mode minuteur (décompte)
       if (mode === "timer") {
         interval = setInterval(() => {
           setTimeLeft(prev => {
             // Si le temps atteint 0 → stop automatique
             if (prev <= 1) {
-              setIsFocused(false);
+              setIsRunning(false);
               return 0;
             }
             return prev - 1; // sinon on décrémente
@@ -49,9 +49,9 @@ const Timer = () => {
       }
     }
 
-    // Nettoyage de l'intervalle lorsque le mode change ou isFocused change
+    // Nettoyage de l'intervalle lorsque le mode change ou pause
     return () => clearInterval(interval);
-  }, [isFocused, mode, setIsFocused]);
+  }, [isRunning, mode]);
 
   // Formatting HH:MM:SS
   const formatTime = (seconds) => {
@@ -67,7 +67,7 @@ const Timer = () => {
     if (timeLeft === 0 || timeLeft === initialDuration) {
       setTimeLeft(initialDuration);
     }
-    setIsFocused(true);
+    setIsRunning(true);
   };
 
   // Démarre le chrono
@@ -75,15 +75,15 @@ const Timer = () => {
     if (chronoTime === 0) {
       setChronoTime(0);
     }
-    setIsFocused(true);
+    setIsRunning(true);
   };
 
   // Pause
-  const handleStop = () => setIsFocused(false);
+  const handlePause = () => setIsRunning(false);
 
   // Reset complet
   const handleReset = () => {
-    setIsFocused(false);
+    setIsRunning(false);
     setTimeLeft(initialDuration);
     setChronoTime(0);
   };
@@ -133,7 +133,7 @@ const Timer = () => {
             />
 
             {/* Start / Resume / Pause */}
-            {!isFocused ? (
+            {!isRunning ? (
               <button
                 onClick={handleStartTimer}
                 className="bg-[#8B4513] px-4 py-1 rounded hover:bg-[#A0522D] transition-colors"
@@ -142,7 +142,7 @@ const Timer = () => {
               </button>
             ) : (
               <button
-                onClick={handleStop}
+                onClick={handlePause}
                 className="bg-[#5C2A0E] px-4 py-1 rounded hover:bg-[#8B3E20] transition-colors"
               >
                 Pause
@@ -154,16 +154,16 @@ const Timer = () => {
         {/* Contrôles du chrono */}
         {mode === "chrono" && (
           <div>
-            {!isFocused ? (
+            {!isRunning ? (
               <button
                 onClick={handleStartChrono}
                 className="bg-[#8B4513] px-4 py-1 rounded hover:bg-[#A0522D] transition-colors"
               >
-                {chronoTime !== 0 ? "" : "Start"}
+                {chronoTime !== 0 ? "Resume" : "Start"}
               </button>
             ) : (
               <button
-                onClick={handleStop}
+                onClick={handlePause}
                 className="bg-[#5C2A0E] px-4 py-1 rounded hover:bg-[#8B3E20] transition-colors"
               >
                 Pause
